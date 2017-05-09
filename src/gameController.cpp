@@ -1,11 +1,12 @@
 #include "gameController.hpp"
 
 
-GameController::GameController() : exitRequested(false), window(sf::VideoMode(800,600), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,800,600))
+GameController::GameController() : exitRequested(false), window(sf::VideoMode(1920,1080), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,800,600))
 {
   window.setFramerateLimit(60);
 
   window.setView(view);
+
 }
 
 void GameController::run()
@@ -54,6 +55,9 @@ void GameController::run()
 
 void GameController::playerMove(int x, int y){
 
+	std::cout << "direction " << x << " " << y << std::endl;
+	std::cout << "player position " << player.x << " " << player.y << std::endl;
+	std::cout << "grid size " << grid.height << " " << grid.width << std::endl;
 	if(grid.height > player.y + y && player.y >= 0){
 		if(grid.width > player.x + x && player.x >= 0){
 			//grid.tiles[player->x][player->y] = nullptr;

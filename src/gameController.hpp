@@ -39,8 +39,12 @@ private:
 
   // Standart View
   sf::View view;
-  Grid grid = Grid(0,0);
+  Grid grid = Grid(10,10);
   Player player;
+  float beatTime;
+  float hitWindow;
+  sf::Clock clock;
+
 
 };
 #endif
