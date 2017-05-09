@@ -33,7 +33,7 @@ private:
 
   // Exit the game
   bool exitRequested;
-
+  bool canMove;
   // The window to draw on
   sf::RenderWindow window;
 
@@ -41,9 +41,10 @@ private:
   sf::View view;
   Grid grid = Grid(10,10);
   Player player;
-  float beatTime;
-  float hitWindow;
+  float beatTime = 1.0f;
+  float hitWindow = 0.1f;
   sf::Clock clock;
+  sf::RectangleShape shape;
 
 
 };
