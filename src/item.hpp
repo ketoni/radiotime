@@ -1,16 +1,12 @@
-#ifndef ITEM_H
-#define ITEM_H
+#ifndef ITEM_HH
+#define ITEM_HH
 
-#include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
-class Item
+struct Item
 {
-public:
-	Item();
-  ~Item();
-
+    unsigned id;
+    sf::Sprite sprite;
 };
 
-#endif /* ITEM_H */
+#endif /* ITEM_HH */

@@ -1,21 +1,15 @@
-#ifndef TILE_H
-#define TILE_H
+#ifndef TILE_HH
+#define TILE_HH
 
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include "tile.hpp"
 #include "item.hpp"
-#include <vector>
 
-class Tile
+struct Tile
 {
-public:
-	Tile();
-  ~Tile();
+    bool storeable;
+    unsigned puzzlekey;
 
-  Item* item;
-
+    Item storage;
+    Item puzzlepiece;
 };
 
-#endif /* TILE_H */
+#endif /* TILE_HH */
