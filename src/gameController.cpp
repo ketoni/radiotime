@@ -15,6 +15,7 @@ void GameController::run()
   {
     // Check for events happening
     sf::Event event;
+
     while(window.pollEvent(event))
     {
       // Check if something needs to be done with given event
@@ -52,18 +53,20 @@ void GameController::run()
 }
 
 void GameController::playerMove(int x, int y){
-	if(grid.height > player->y + y && player->y >= 0){
-		if(grid.width > player->x + x && player->x >= 0){
+
+	if(grid.height > player.y + y && player.y >= 0){
+		if(grid.width > player.x + x && player.x >= 0){
 			//grid.tiles[player->x][player->y] = nullptr;
 			//grid.tiles[player->x+x][player->y+y] = player;
-			player->move(x,y);
+			player.move(x,y);
+
 		}
 	}
 }
 
 void GameController::draw() {
 
-		auto playerSprite = player->getSprite();
+		auto playerSprite = player.getSprite();
 		window.draw(playerSprite);
 
 }

@@ -13,7 +13,7 @@ class GameController
 {
 public:
   GameController();
-  ~GameController() {};
+  ~GameController(){};
 
   void run();
   void playerMove(int,int);
@@ -39,8 +39,8 @@ private:
 
   // Standart View
   sf::View view;
-  Grid grid;
-  Player* player;
+  Grid grid = Grid(0,0);
+  Player player;
 
 };
 #endif

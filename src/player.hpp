@@ -10,7 +10,7 @@ class Player
 {
 public:
   Player();
-  ~Player();
+  ~Player(){};
   int x = 0;
   int y = 0;
   sf::Sprite& getSprite();

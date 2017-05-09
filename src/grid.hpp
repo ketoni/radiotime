@@ -11,7 +11,7 @@ class Grid
 {
 public:
 	Grid(unsigned int width, unsigned int height);
-  ~Grid();
+  ~Grid(){};
 
   std::vector<std::vector<Tile*>> tiles;
   unsigned int width;
