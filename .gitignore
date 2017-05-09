@@ -1,5 +1,5 @@
 *.cproject
 *.project
-*.o
-*.d
+**.o
+**.d
 .settings
