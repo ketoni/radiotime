@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player() : _pos(0,0), _age(0), _sprite(), _texture(), _inventory()
+Player::Player() : _pos(0,0), _age(0), _sprite(), _texture(), _inventory(), _inventorypos(100.f, 100.f)
 {
 	_texture.loadFromFile("../sprites/player.png");
 	_sprite.setTexture(_texture);
@@ -18,7 +18,8 @@ Item Player::swapInventory(Item item)
 {
     Item ret = _inventory;
     _inventory = item;
-   return ret;
+    _inventory.sprite.setPosition(_inventorypos);
+    return ret;
 } 
 
 sf::Sprite& Player::getSprite()
@@ -29,4 +30,9 @@ sf::Sprite& Player::getSprite()
 sf::Vector2i const& Player::getPosition()
 {
     return _pos;
+}
+
+Item const& Player::getInventory()
+{
+    return _inventory;
 }

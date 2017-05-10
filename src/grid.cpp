@@ -16,12 +16,22 @@ void Grid::initTiles()
     for (auto& tile : _tiles) {
 
         if (tile.texname.length()) {
-            // Load a texture to the tile and initialize the sprite
-            tile.texture.loadFromFile(tile.texname);
-            tile.sprite = sf::Sprite(tile.texture);
-        
-            tile.storage.texture.loadFromFile(tile.storage.texname);
-            tile.storage.sprite = sf::Sprite(tile.storage.texture);
+            // Load textures to the tile and initialize the sprites
+            
+            if (_textures.find(tile.texname) == _textures.end()) {
+                _textures[tile.texname].loadFromFile(tile.texname);
+            }
+            tile.sprite = sf::Sprite(_textures.at(tile.texname));
+
+            if (_textures.find(tile.storage.texname) == _textures.end()) {
+                _textures[tile.storage.texname].loadFromFile(tile.storage.texname);
+            }
+            tile.storage.sprite = sf::Sprite(_textures.at(tile.storage.texname));
+
+            if (_textures.find(tile.puzzlepiece.texname) == _textures.end()) {
+                _textures[tile.puzzlepiece.texname].loadFromFile(tile.puzzlepiece.texname);
+            }
+            tile.puzzlepiece.sprite = sf::Sprite(_textures.at(tile.puzzlepiece.texname));
 
             // Also move the sprites to the correct position on the screen
             tile.sprite.move(x*_tilesize, y*_tilesize);
@@ -60,6 +70,11 @@ unsigned Grid::getWidth()
 unsigned Grid::getHeight()
 {
     return _height;
+}
+
+unsigned Grid::getTileSize()
+{
+    return _tilesize;
 }
 
 std::vector<Tile> const& Grid::getTiles()

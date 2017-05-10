@@ -6,7 +6,7 @@
 struct Tile
 {
     bool storeable;
-    unsigned puzzlekey;
+    int puzzlekey;
 
     std::string tooltip;
     std::string texname;
@@ -14,7 +14,6 @@ struct Tile
     Item storage;
     Item puzzlepiece;
 
-    sf::Texture texture;
     sf::Sprite sprite;
 };
 

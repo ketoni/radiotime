@@ -10,7 +10,6 @@ struct Item
     std::string tooltip;
     std::string texname;
 
-    sf::Texture texture;
     sf::Sprite sprite;
 };
 

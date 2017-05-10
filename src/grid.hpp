@@ -6,6 +6,7 @@
 #include <iostream>
 #include "tile.hpp"
 #include <vector>
+#include <unordered_map>
 
 class Grid
 {
@@ -14,6 +15,7 @@ class Grid
 
         unsigned getWidth();
         unsigned getHeight();
+        unsigned getTileSize();
 
         std::vector<Tile> const& getTiles();
         Tile& getTile(unsigned, unsigned);
@@ -21,10 +23,13 @@ class Grid
         bool canMoveTo(int, int);
         bool canInteractWith(int, int);
 
+
+
     private:
         void initTiles();
 
         std::vector<Tile> _tiles;
+        std::unordered_map<std::string, sf::Texture> _textures;
 
         unsigned _width;
         unsigned _height;

@@ -2,8 +2,8 @@
 {},
 
 {
-    false,
-    10,
+    true,
+    -1,
     "this is a blocking thing",
     "../sprites/thing.png",
 },
@@ -12,7 +12,7 @@
 
 {
     true,
-    10,
+    -1,
     "this is example with an item",
     "../sprites/thing.png",
     {
@@ -25,7 +25,20 @@
 {},
 {},
 {},
-{},
+
+{
+    true,
+    1,
+    "this is an example with a puzzle piece",
+    "../sprites/thing.png",
+    {},
+    {
+        30,
+        "this is a puzzle piece",
+        "../sprites/key.png",
+    },
+},
+
 {},
 {},
 {},

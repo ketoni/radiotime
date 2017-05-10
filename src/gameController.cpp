@@ -109,12 +109,19 @@ void GameController::playerMove(int x, int y){
     //check if tile is empty
 
     if (grid.canMoveTo(newpos.x, newpos.y)) {
-        // Tile can be moved on:
+        // Tile can be moved on
         player.move(x,y);
     }
     else if (grid.canInteractWith(newpos.x, newpos.y)) {
-        // Tile can't be moved on, but can hold items:
-        grid.getTile(newpos.x, newpos.y).storage = player.swapInventory(grid.getTile(newpos.x, newpos.y).storage);
+        // Tile can't be moved on, but can hold items
+        Tile& tile = grid.getTile(newpos.x, newpos.y);
+        if (tile.puzzlekey == player.getInventory().id && tile.puzzlepiece.id != 0) {
+            tile.storage = tile.puzzlepiece;
+            tile.puzzlepiece = {0};
+        }
+        tile.storage = player.swapInventory(tile.storage);
+        tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
+
     }
     else {
         // Tile just blocks movement 
@@ -131,6 +138,7 @@ void GameController::draw() {
                 window.draw(tile.storage.sprite);
             }
         }
+        window.draw(player.getInventory().sprite);
 
 		auto playerSprite = player.getSprite();
 		window.draw(playerSprite);

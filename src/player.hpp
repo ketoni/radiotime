@@ -13,6 +13,7 @@ class Player
         
         sf::Vector2i const& getPosition();
         sf::Sprite& getSprite();
+        Item const& getInventory();
 
         void move(int, int);
         Item swapInventory(Item);
@@ -26,6 +27,7 @@ class Player
         sf::Texture _texture;
 
         Item _inventory;
+        sf::Vector2f _inventorypos;
 };
 
 #endif /* PLAYER_H */
