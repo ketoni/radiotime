@@ -55,8 +55,8 @@ private:
   sf::Clock clock;
   sf::RectangleShape shape;
   sf::RectangleShape shape1;
-  sf::Vector2u textPos = sf::Vector2u(100,500);
-  TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 16, sf::Color(200,200,200));
+  sf::Vector2u textPos = sf::Vector2u(240,950);
+  TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 26, sf::Color(255,0,0));
   std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);
   std::string password = "STING";
   sf::Font font;

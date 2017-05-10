@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player() : _pos(0,0), _age(0), _sprite(), _texture(), _inventory(), _inventorypos(100.f, 100.f)
+Player::Player() : _pos(2,2), _age(0), _sprite(), _texture(), _inventory(), _inventorypos(100.f, 100.f)
 {
 	_texture.loadFromFile("../sprites/player.png");
 	_sprite.setTexture(_texture);
@@ -11,7 +11,7 @@ void Player::move(int x, int y)
 {
 	_pos.x += x;
     _pos.y += y;
-	_sprite.setPosition(_pos.x * _texture.getSize().x, _pos.y * _texture.getSize().y);
+	_sprite.setPosition(_pos.x * _texture.getSize().x, _pos.y * _texture.getSize().y-35);
 }
 
 Item Player::swapInventory(Item item)

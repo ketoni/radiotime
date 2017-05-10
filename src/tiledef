@@ -1,63 +1,632 @@
-
-{},
-
+// wall
 {
-    true,
+    false,
+	false,
     -1,
-    "this is a blocking thing",
-    "../sprites/thing.png",
+    "",
+    "wall.png",
 },
-
-{},
-
+// wall
 {
-    true,
+    false,
+	false,
     -1,
-    "this is example with an item",
-    "../sprites/thing.png",
-    {
-        1,
-        "this is an item",
-        "../sprites/item.png",
-    },
+    "",
+    "wall.png",
 },
+// radio
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// console
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// console
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// console
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// door
+{
+    false,
+    false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// window
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// sofa 
+{
+    false,
+    false,
+    -1,
+    "",
+    "wall.png",
+},
+// sofa
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+    false,
+    -1,
+    "",
+    "wall.png",
+},
+// stove
+{
+    false,
+    false,
+    -1,
+    "",
+    "wall.png",
+},
+// fridge
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//second row
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
 {},
 {},
 {},
 {},
 
+// mario pipe?
+{},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+{},
+
+// plant or trash bin?
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//third row
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+{},
+{},
+{},
+{},
+
+// vent
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+{},
+
+// mirror
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+//fourth row
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// floor vent
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+
+// wall
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+
+//fifth row
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+//time machine
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//time machine
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+//kitchen table
 {
     true,
-    1,
-    "this is an example with a puzzle piece",
-    "../sprites/thing.png",
-    {},
-    {
-        30,
-        "this is a puzzle piece",
-        "../sprites/key.png",
-    },
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//sixth row
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{},
+{},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{},
+{},
+//book shelf
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+//seventh row
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//book shelf
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+//work desk
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+//drawer
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+//night table
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+//bed
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//eighth row
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{},
+{},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+//bed
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{},
+{},
+{},
+{},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//ninth row
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//white closet
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//black closet
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+//blue closet
+{
+    true,
+	true,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
+},
+{
+    false,
+	false,
+    -1,
+    "",
+    "wall.png",
 },
 
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},
-{},

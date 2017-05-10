@@ -2,29 +2,29 @@
 
 #include <cmath>
 
-GameController::GameController() : exitRequested(false), window(sf::VideoMode(1200,675), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,1200,675))
+GameController::GameController() : exitRequested(false), window(sf::VideoMode(1920,1080), "RadioTime", sf::Style::Fullscreen), view(sf::FloatRect(0,0,1920,1080))
 {
 	window.setFramerateLimit(60);
 	shape.setFillColor(sf::Color(0,200,0));
-	shape.setPosition(500,500);
+	shape.setPosition(446,454);
 	shape1.setFillColor(sf::Color(200,200,200));
-	shape1.setPosition(500,500);
+	shape1.setPosition(446,454);
 	shape1.setSize(sf::Vector2f(200,40));
 	window.setView(view);
 	clock.restart();
 	gridTexture.loadFromFile("../sprites/grid.png");
 	gridSprite.setTexture(gridTexture);
-	//gridSprite.setPosition(100,100);
-	gridSprite.setScale((float)(1200.0f/1920.0f),(float)(675.0f/1080.0f));
+	gridSprite.setPosition(-10,0);
+	//gridSprite.setScale((float)(1200.0f/1920.0f),(float)(675.0f/1080.0f));
 	//gridSprite.setScale(0.1f,0.1f);
 	font.loadFromFile("../fonts/Pixeled.ttf");
 	int i = 0;
-	int x = 37;
+	int x = 36;
 	for(int i = 0; i < password.length(); i++){
 		passwordLetters[i].setString("?");
 		passwordLetters[i].setCharacterSize(30);
 		passwordLetters[i].setFont(font);
-		passwordLetters[i].setPosition(415+x*i,32);
+		passwordLetters[i].setPosition(417+x*i,34);
 	}
 }
 

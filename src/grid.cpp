@@ -1,6 +1,6 @@
 #include "grid.hpp"
 
-Grid::Grid() : _width(5), _height(5), _tilesize(40) {
+Grid::Grid() : _width(16), _height(9), _tilesize(110) {
 
     _tiles.assign({
         #include "tiledef"

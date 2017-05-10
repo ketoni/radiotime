@@ -6,6 +6,7 @@
 struct Tile
 {
     bool storeable;
+    bool hidden;
     int puzzlekey;
 
     std::string tooltip;
