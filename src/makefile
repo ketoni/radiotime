@@ -1,4 +1,4 @@
-SOURCES=main.cpp player.cpp gameController.cpp grid.cpp 
+SOURCES=main.cpp player.cpp gameController.cpp grid.cpp textBox.cpp
 EXECUTABLE = RadioTime
 
 

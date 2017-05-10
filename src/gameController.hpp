@@ -10,6 +10,7 @@
 #include <iostream>
 #include "player.hpp"
 #include "grid.hpp"
+#include "textBox.hpp"
 
 class GameController
 {
@@ -24,6 +25,7 @@ public:
   {
   exitRequested = true;
   }
+  void letterFound(char);
 
   sf::RenderWindow& getWindow()
   {
@@ -48,9 +50,16 @@ private:
   //float beatTime = 1.025641025641f;
   float beatTime = 60.0f/117.2f;
   float hitWindow = 0.1f;
+  sf::Texture gridTexture;
+  sf::Sprite gridSprite;
   sf::Clock clock;
   sf::RectangleShape shape;
   sf::RectangleShape shape1;
+  sf::Vector2u textPos = sf::Vector2u(100,500);
+  TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 16, sf::Color(200,200,200));
+  std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);
+  std::string password = "STING";
+  sf::Font font;
 
 
 

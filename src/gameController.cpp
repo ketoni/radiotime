@@ -2,17 +2,30 @@
 
 #include <cmath>
 
-GameController::GameController() : exitRequested(false), window(sf::VideoMode(1080,720), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,800,600))
+GameController::GameController() : exitRequested(false), window(sf::VideoMode(1200,675), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,1200,675))
 {
-  window.setFramerateLimit(60);
-  shape.setFillColor(sf::Color(0,200,0));
-  shape.setPosition(500,500);
-  shape1.setFillColor(sf::Color(200,200,200));
-  shape1.setPosition(500,500);
-  shape1.setSize(sf::Vector2f(200,40));
-  window.setView(view);
-  clock.restart();
-
+	window.setFramerateLimit(60);
+	shape.setFillColor(sf::Color(0,200,0));
+	shape.setPosition(500,500);
+	shape1.setFillColor(sf::Color(200,200,200));
+	shape1.setPosition(500,500);
+	shape1.setSize(sf::Vector2f(200,40));
+	window.setView(view);
+	clock.restart();
+	gridTexture.loadFromFile("../sprites/grid.png");
+	gridSprite.setTexture(gridTexture);
+	//gridSprite.setPosition(100,100);
+	gridSprite.setScale((float)(1200.0f/1920.0f),(float)(675.0f/1080.0f));
+	//gridSprite.setScale(0.1f,0.1f);
+	font.loadFromFile("../fonts/Pixeled.ttf");
+	int i = 0;
+	int x = 37;
+	for(int i = 0; i < password.length(); i++){
+		passwordLetters[i].setString("?");
+		passwordLetters[i].setCharacterSize(30);
+		passwordLetters[i].setFont(font);
+		passwordLetters[i].setPosition(415+x*i,32);
+	}
 }
 
 void GameController::run()
@@ -21,7 +34,6 @@ void GameController::run()
 	music.openFromFile("../music/music.ogg");
 	float factor = 0.0f;
 	float time = 0.0f;
-
 	// start screen, wait for player to press something
 	while(window.isOpen() && !exitRequested && startScreen){
 		sf::Event event1;
@@ -80,6 +92,12 @@ void GameController::run()
 				if(!musicOn && event.key.code == sf::Keyboard::P){
 					musicOn = true;
 					music.play();
+					textBox.setText("Uh oh! The time machine has tuned to the beat! Shut it off before you DIE.");
+					//std::string ko = textBox.getText().getString();
+					//std::cout << "peeeeeneis " << ko << std::endl;
+				}
+				if(event.key.code == sf::Keyboard::N){
+					letterFound('N');
 				}
 				std::cout << "time " << std::fmod(time, beatTime) << std::endl;
 			}
@@ -141,8 +159,24 @@ void GameController::draw() {
         window.draw(player.getInventory().sprite);
 
 		auto playerSprite = player.getSprite();
+		window.draw(gridSprite);
 		window.draw(playerSprite);
 		window.draw(shape1);
 		window.draw(shape);
+		//window.draw(textBox.getBox());
+		window.draw(textBox.getText());
+		for(auto text : passwordLetters){
+			window.draw(text);
+		}
 
+
+
+}
+
+void GameController::letterFound(char letter){
+	for(int i = 0; i < password.length(); i++){
+		if (password[i] == letter){
+			passwordLetters[i].setString(letter);
+		}
+	}
 }
