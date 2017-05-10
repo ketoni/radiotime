@@ -105,9 +105,12 @@ void GameController::playerMove(int x, int y){
 
 	if(grid.getHeight() > player.y + y && player.y >= 0){
 		if(grid.getWidth() > player.x + x && player.x >= 0){
-			//grid.tiles[player->x][player->y] = nullptr;
-			//grid.tiles[player->x+x][player->y+y] = player;
-			player.move(x,y);
+			std::cout << grid.getTiles()[player.x+x+(player.y+y)*grid.getWidth()].texname.length() << std::endl;
+			//check if tile is empty
+			if(!(grid.getTiles()[player.x+x+(player.y+y)*grid.getWidth()].texname.length())){
+				player.move(x,y);
+			}
+
 		}
 	}
 	canMove = false;
