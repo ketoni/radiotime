@@ -448,11 +448,16 @@
 {},
 //bed
 {
-    false,
+    true,
 	false,
     -1,
-    "",
+    "It's a bed.",
     "wall.png",
+    {
+        123,
+        "This is an apple or something",
+        "../sprites/item.png",
+    },
 },
 {},
 {},

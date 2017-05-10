@@ -150,13 +150,6 @@ void GameController::playerMove(int x, int y){
 //draw everything
 void GameController::draw() {
 
-        for (auto& tile : grid.getTiles()) {
-            window.draw(tile.sprite);
-            if (tile.storage.id) {
-                window.draw(tile.storage.sprite);
-            }
-        }
-        window.draw(player.getInventory().sprite);
 
 		auto playerSprite = player.getSprite();
 		window.draw(gridSprite);
@@ -169,7 +162,13 @@ void GameController::draw() {
 			window.draw(text);
 		}
 
-
+        for (auto& tile : grid.getTiles()) {
+            window.draw(tile.sprite);
+            if (tile.storage.id) {
+                window.draw(tile.storage.sprite);
+            }
+        }
+        window.draw(player.getInventory().sprite);
 
 }
 

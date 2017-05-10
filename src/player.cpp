@@ -1,6 +1,6 @@
 #include "player.hpp"
 
-Player::Player() : _pos(2,2), _age(0), _sprite(), _texture(), _inventory(), _inventorypos(100.f, 100.f)
+Player::Player() : _pos(2,2), _age(0), _sprite(), _texture(), _inventory(), _inventorypos(1700.f, 400.f)
 {
 	_texture.loadFromFile("../sprites/player.png");
 	_sprite.setTexture(_texture);
