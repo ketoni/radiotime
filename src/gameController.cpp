@@ -103,16 +103,22 @@ void GameController::run()
 // logic for player movement
 void GameController::playerMove(int x, int y){
 
-	if(grid.getHeight() > player.y + y && player.y >= 0){
-		if(grid.getWidth() > player.x + x && player.x >= 0){
-			std::cout << grid.getTiles()[player.x+x+(player.y+y)*grid.getWidth()].texname.length() << std::endl;
-			//check if tile is empty
-			if(!(grid.getTiles()[player.x+x+(player.y+y)*grid.getWidth()].texname.length())){
-				player.move(x,y);
-			}
+    static sf::Vector2i newpos;
+    newpos = player.getPosition() + sf::Vector2i(x,y);
 
-		}
-	}
+    //check if tile is empty
+
+    if (grid.canMoveTo(newpos.x, newpos.y)) {
+        // Tile can be moved on:
+        player.move(x,y);
+    }
+    else if (grid.canInteractWith(newpos.x, newpos.y)) {
+        // Tile can't be moved on, but can hold items:
+        grid.getTile(newpos.x, newpos.y).storage = player.swapInventory(grid.getTile(newpos.x, newpos.y).storage);
+    }
+    else {
+        // Tile just blocks movement 
+    }
 	canMove = false;
 }
 

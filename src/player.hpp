@@ -8,20 +8,24 @@
 
 class Player
 {
-public:
-  Player();
-  ~Player(){};
-  int x = 0;
-  int y = 0;
-  sf::Sprite& getSprite();
-  void move(int,int);
+    public:
+        Player();
+        
+        sf::Vector2i const& getPosition();
+        sf::Sprite& getSprite();
 
-private:
-  int age = 0;
-  sf::Sprite sprite;
-  sf::Texture texture;
-  Item *item;
+        void move(int, int);
+        Item swapInventory(Item);
 
+    private:
+
+        sf::Vector2i _pos;
+        unsigned _age;
+        
+        sf::Sprite _sprite;
+        sf::Texture _texture;
+
+        Item _inventory;
 };
 
 #endif /* PLAYER_H */

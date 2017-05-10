@@ -34,6 +34,24 @@ void Grid::initTiles()
     }
 }
 
+bool Grid::canMoveTo(int x, int y)
+{
+    int idx = y * _width + x;
+    if (x >= 0 && x < _width && y >= 0 && y < _height) {
+        return !bool(_tiles.at(idx).texname.length());
+    } 
+    return false;
+}
+
+bool Grid::canInteractWith(int x, int y)
+{
+    int idx = y * _width + x;
+    if (x >= 0 && x < _width && y >= 0 && y < _height) {
+        return _tiles.at(idx).storeable;
+    } 
+    return false;
+}
+
 unsigned Grid::getWidth()
 {
     return _width;
@@ -47,4 +65,9 @@ unsigned Grid::getHeight()
 std::vector<Tile> const& Grid::getTiles()
 {
     return _tiles;
+}
+
+Tile& Grid::getTile(unsigned x, unsigned y) {
+    int idx = y * _width + x;
+    return _tiles.at(idx);
 }

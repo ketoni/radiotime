@@ -16,6 +16,10 @@ class Grid
         unsigned getHeight();
 
         std::vector<Tile> const& getTiles();
+        Tile& getTile(unsigned, unsigned);
+
+        bool canMoveTo(int, int);
+        bool canInteractWith(int, int);
 
     private:
         void initTiles();
