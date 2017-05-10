@@ -9,14 +9,23 @@
 
 class Grid
 {
-public:
-	Grid(unsigned int width, unsigned int height);
-  ~Grid(){};
+    public:
+        Grid();
 
-  std::vector<std::vector<Tile*>> tiles;
-  unsigned int width;
-  unsigned int height;
+        unsigned getWidth();
+        unsigned getHeight();
 
+        std::vector<Tile> const& getTiles();
+
+    private:
+        void initTiles();
+
+        std::vector<Tile> _tiles;
+
+        unsigned _width;
+        unsigned _height;
+
+        unsigned _tilesize;
 };
 
 #endif /* GRID_H */

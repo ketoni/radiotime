@@ -1,5 +1,6 @@
 #include "gameController.hpp"
 
+#include <cmath>
 
 GameController::GameController() : exitRequested(false), window(sf::VideoMode(1080,720), "RadioTime", sf::Style::Close), view(sf::FloatRect(0,0,800,600))
 {
@@ -102,8 +103,8 @@ void GameController::run()
 // logic for player movement
 void GameController::playerMove(int x, int y){
 
-	if(grid.height > player.y + y && player.y >= 0){
-		if(grid.width > player.x + x && player.x >= 0){
+	if(grid.getHeight() > player.y + y && player.y >= 0){
+		if(grid.getWidth() > player.x + x && player.x >= 0){
 			//grid.tiles[player->x][player->y] = nullptr;
 			//grid.tiles[player->x+x][player->y+y] = player;
 			player.move(x,y);
@@ -114,6 +115,10 @@ void GameController::playerMove(int x, int y){
 
 //draw everything
 void GameController::draw() {
+
+        for (auto& tile : grid.getTiles()) {
+            window.draw(tile.sprite);
+        }
 
 		auto playerSprite = player.getSprite();
 		window.draw(playerSprite);

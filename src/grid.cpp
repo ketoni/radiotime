@@ -1,20 +1,46 @@
 #include "grid.hpp"
 
-Grid::Grid(unsigned int width, unsigned int height){
+Grid::Grid() : _width(5), _height(5), _tilesize(40) {
 
-	this->width = width;
-	this->height = height;
+    _tiles.assign({
+        #include "tiledef"
+    });        
 
-	for(unsigned int y = 0; y < height; y++){
+    initTiles();
+}
 
-		std::vector<Tile*> row;
+void Grid::initTiles()
+{
+    unsigned x = 0, y = 0;
 
-		for(unsigned int x = 0; x < width; x++){
+    for (auto& tile : _tiles) {
 
-			Tile* tile;
-			row.push_back(tile);
-		}
+        if (tile.texname.length()) {
+            // Load a texture to the tile and initialize the sprite
+            tile.texture.loadFromFile(tile.texname);
+            tile.sprite = sf::Sprite(tile.texture);
 
-		tiles.push_back(row);
-	}
+            // Also move the sprite to the correct position on the screen
+            tile.sprite.move(x*_tilesize, y*_tilesize);
+        }
+        if (++x == _width) {
+            x = 0;
+            ++y;
+        }
+    }
+}
+
+unsigned Grid::getWidth()
+{
+    return _width;
+}
+
+unsigned Grid::getHeight()
+{
+    return _height;
+}
+
+std::vector<Tile> const& Grid::getTiles()
+{
+    return _tiles;
 }

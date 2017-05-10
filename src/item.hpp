@@ -6,6 +6,11 @@
 struct Item
 {
     unsigned id;
+   
+    std::string tooltip;
+    std::string texname;
+
+    sf::Texture texture;
     sf::Sprite sprite;
 };
 

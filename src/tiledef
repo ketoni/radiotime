@@ -1,0 +1,23 @@
+
+{},
+
+{
+    false,
+    10,
+    "this is a blocking thing",
+    "../sprites/thing.png",
+},
+
+{},
+
+{
+    true,
+    10,
+    "this is example with an item",
+    "../sprites/thing.png",
+    {
+        1,
+        "this is an item",
+        "../sprites/item.png",
+    },
+},

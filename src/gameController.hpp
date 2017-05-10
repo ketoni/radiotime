@@ -43,7 +43,7 @@ private:
 
   // Standart View
   sf::View view;
-  Grid grid = Grid(10,10);
+  Grid grid;
   Player player;
   //float beatTime = 1.025641025641f;
   float beatTime = 60.0f/117.2f;
