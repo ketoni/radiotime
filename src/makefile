@@ -5,7 +5,7 @@ EXECUTABLE = RadioTime
 OBJECTS = $(patsubst %.cpp,%.o,$(SOURCES))
 DEPENDS = $(OBJECTS:.o=.d)
 CFLAGS=-c -MMD -MP -Wall --std=c++11 -g
-LFLAGS=--std=c++11 -lsfml-window -lsfml-graphics -lsfml-system -lsfml-network -lz -ltmx-loader -lpugi -g
+LFLAGS=--std=c++11 -lsfml-window -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-network -lz -ltmx-loader -lpugi -g
 CC=g++
 
 all: $(SOURCES) $(EXECUTABLE)

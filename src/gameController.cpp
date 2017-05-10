@@ -6,55 +6,91 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(10
   window.setFramerateLimit(60);
   shape.setFillColor(sf::Color(0,200,0));
   shape.setPosition(500,500);
+  shape1.setFillColor(sf::Color(200,200,200));
+  shape1.setPosition(500,500);
+  shape1.setSize(sf::Vector2f(200,40));
   window.setView(view);
   clock.restart();
+
 }
 
 void GameController::run()
 {
-  // Loop until the player exits the game
-  while(window.isOpen() && !exitRequested)
-  {
-    // Check for events happening
-    sf::Event event;
-    float time = clock.getElapsedTime().asSeconds();
-    float factor = std::fmod(time, beatTime);
-    if (factor > hitWindow && factor < beatTime-hitWindow){
-    	canMove = true;
-    }
-    while(window.pollEvent(event))
-    {
-      // Check if something needs to be done with given event
+	sf::Music music;
+	music.openFromFile("../music/music.ogg");
+	float factor = 0.0f;
+	float time = 0.0f;
 
-
-    	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
-    	{
-    		exitRequested = true;
-    	}
-    	if(canMove && event.type == sf::Event::KeyPressed && (std::abs(factor-beatTime)<hitWindow || factor<hitWindow)){
-    		if(event.key.code == sf::Keyboard::Left){
-				playerMove(-1,0);
+	// start screen, wait for player to press something
+	while(window.isOpen() && !exitRequested && startScreen){
+		sf::Event event1;
+		while(window.pollEvent(event1)){
+			if (event1.type == sf::Event::Closed || (event1.type == sf::Event::KeyPressed && event1.key.code == sf::Keyboard::Escape))
+			{
+				exitRequested = true;
 			}
-			else if(event.key.code == sf::Keyboard::Right){
-				playerMove(1,0);
+			if(event1.type == sf::Event::KeyPressed){
+				startScreen = false;
 			}
-			else if(event.key.code == sf::Keyboard::Down){
-				playerMove(0,1);
+		}
+		window.clear(sf::Color(0,0,0));
+		window.display();
+	}
+
+	// Game begins
+	while(window.isOpen() && !exitRequested)
+	{
+		sf::Event event;
+		//if music is on, change the factors which determine whether the player can move yet or not
+		if(musicOn){
+			time = music.getPlayingOffset().asSeconds();
+			factor = std::fmod(time, beatTime);
+			if (factor > hitWindow && factor < beatTime-hitWindow){
+				canMove = true;
 			}
-			else if(event.key.code == sf::Keyboard::Up){
-				playerMove(0,-1);
+		}
+		//player can move arbitraly before the music is turned on
+		else{
+			canMove = true;
+		}
+
+		while(window.pollEvent(event))
+		{
+			//exit
+			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+			{
+				exitRequested = true;
+			}
+			//player movement, can move always if music is off
+			// if music is on, only one movement per beat
+			if(canMove && event.type == sf::Event::KeyPressed && (!musicOn ||(std::abs(factor-beatTime)<hitWindow || factor<hitWindow))){
+				if(event.key.code == sf::Keyboard::Left){
+					playerMove(-1,0);
+				}
+				else if(event.key.code == sf::Keyboard::Right){
+					playerMove(1,0);
+				}
+				else if(event.key.code == sf::Keyboard::Down){
+					playerMove(0,1);
+				}
+				else if(event.key.code == sf::Keyboard::Up){
+					playerMove(0,-1);
+				}
+				if(!musicOn && event.key.code == sf::Keyboard::P){
+					musicOn = true;
+					music.play();
+				}
+				std::cout << "time " << std::fmod(time, beatTime) << std::endl;
 			}
 
-    		std::cout << "time " << std::fmod(time, beatTime) << std::endl;
-    	}
+		}
 
-    }
-    // Update everything that is needed
-    // Enemy movement, tower shooting etc.
-
-    // Clear window
-    shape.setSize(sf::Vector2f(factor*200,40));
-    window.clear(sf::Color((1-factor)*50,(1-factor)*50,(1-factor)*50));
+    // a block shows when to beat
+	if(musicOn){
+		shape.setSize(sf::Vector2f((beatTime*2-(beatTime-factor))*200,40));
+	}
+	// clear window with color according to the beat (the color pulses)
+	window.clear(sf::Color((beatTime-factor)*50,(beatTime-factor)*50,(beatTime-factor)*50));
 
     // Draw everything to screen
     draw();
@@ -63,27 +99,25 @@ void GameController::run()
     window.display();
   }
 }
-
+// logic for player movement
 void GameController::playerMove(int x, int y){
 
-	//std::cout << "direction " << x << " " << y << std::endl;
-	//std::cout << "player position " << player.x << " " << player.y << std::endl;
-	//std::cout << "grid size " << grid.height << " " << grid.width << std::endl;
 	if(grid.height > player.y + y && player.y >= 0){
 		if(grid.width > player.x + x && player.x >= 0){
 			//grid.tiles[player->x][player->y] = nullptr;
 			//grid.tiles[player->x+x][player->y+y] = player;
 			player.move(x,y);
-
 		}
 	}
 	canMove = false;
 }
 
+//draw everything
 void GameController::draw() {
 
 		auto playerSprite = player.getSprite();
 		window.draw(playerSprite);
+		window.draw(shape1);
 		window.draw(shape);
 
 }

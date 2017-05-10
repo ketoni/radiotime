@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 #include <list>
 #include <iostream>
 #include "player.hpp"
@@ -34,6 +36,8 @@ private:
   // Exit the game
   bool exitRequested;
   bool canMove;
+  bool musicOn = false;
+  bool startScreen = true;
   // The window to draw on
   sf::RenderWindow window;
 
@@ -41,10 +45,13 @@ private:
   sf::View view;
   Grid grid = Grid(10,10);
   Player player;
-  float beatTime = 1.0f;
+  //float beatTime = 1.025641025641f;
+  float beatTime = 60.0f/117.2f;
   float hitWindow = 0.1f;
   sf::Clock clock;
   sf::RectangleShape shape;
+  sf::RectangleShape shape1;
+
 
 
 };
