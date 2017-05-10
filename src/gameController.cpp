@@ -118,6 +118,9 @@ void GameController::draw() {
 
         for (auto& tile : grid.getTiles()) {
             window.draw(tile.sprite);
+            if (tile.storage.id) {
+                window.draw(tile.storage.sprite);
+            }
         }
 
 		auto playerSprite = player.getSprite();

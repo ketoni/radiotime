@@ -19,9 +19,13 @@ void Grid::initTiles()
             // Load a texture to the tile and initialize the sprite
             tile.texture.loadFromFile(tile.texname);
             tile.sprite = sf::Sprite(tile.texture);
+        
+            tile.storage.texture.loadFromFile(tile.storage.texname);
+            tile.storage.sprite = sf::Sprite(tile.storage.texture);
 
-            // Also move the sprite to the correct position on the screen
+            // Also move the sprites to the correct position on the screen
             tile.sprite.move(x*_tilesize, y*_tilesize);
+            tile.storage.sprite.move(x*_tilesize, y*_tilesize);
         }
         if (++x == _width) {
             x = 0;
