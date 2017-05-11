@@ -24,7 +24,7 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(19
 	gridSprite.setPosition(-10,0);
 	//gridSprite.setScale((float)(1200.0f/1920.0f),(float)(675.0f/1080.0f));
 	//gridSprite.setScale(0.1f,0.1f);
-	font.loadFromFile("../fonts/Pixeled.ttf");
+	font.loadFromFile("../fonts/PressStart2P.ttf");
 	int i = 0;
 	int x = 36;
 	for(int i = 0; i < password.length(); i++){
@@ -42,14 +42,14 @@ void GameController::run()
 	float factor = 0.0f;
 	float time = 0.0f;
 	// start screen, wait for player to press something
-	while(window.isOpen() && !exitRequested && startScreen){
+	while(window.isOpen() && !exitRequested && startScreen) {
 		sf::Event event1;
-		while(window.pollEvent(event1)){
+		while(window.pollEvent(event1)) {
 			if (event1.type == sf::Event::Closed || (event1.type == sf::Event::KeyPressed && event1.key.code == sf::Keyboard::Escape))
 			{
 				exitRequested = true;
 			}
-			if(event1.type == sf::Event::KeyPressed){
+			if(event1.type == sf::Event::KeyPressed) {
 				startScreen = false;
 			}
 		}

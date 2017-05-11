@@ -23,7 +23,7 @@ private:
 	sf::Font font;
 	sf::Clock clock;
 	sf::RectangleShape box;
-	int boxWidth = 1550;
+	int boxWidth = 1420;
 
 };
 

@@ -3,7 +3,7 @@
 TextBox::TextBox(sf::Vector2u position, std::string infoText, int characterSize, sf::Color color){
 
 
-	if (!font.loadFromFile("../fonts/Pixeled.ttf"))
+	if (!font.loadFromFile("../fonts/PressStart2P2.ttf"))
 	{
 	   std::cout << "Font load failed!"<<std::endl;
 	}

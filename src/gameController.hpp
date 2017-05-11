@@ -56,7 +56,7 @@ private:
   sf::RectangleShape shape1;
   sf::RectangleShape inventorybox;
   sf::Vector2u textPos = sf::Vector2u(240,950);
-  TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 26, sf::Color(255,0,0));
+  TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 30, sf::Color(67,221,192));
   std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);
   std::string password = "STING";
   sf::Font font;
