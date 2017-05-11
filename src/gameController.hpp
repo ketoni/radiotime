@@ -47,7 +47,6 @@ private:
   sf::View view;
   Grid grid;
   Player player;
-  //float beatTime = 1.025641025641f;
   float beatTime = 60.0f/117.2f;
   float hitWindow = 0.1f;
   sf::Texture gridTexture;
@@ -55,6 +54,7 @@ private:
   sf::Clock clock;
   sf::RectangleShape shape;
   sf::RectangleShape shape1;
+  sf::RectangleShape inventorybox;
   sf::Vector2u textPos = sf::Vector2u(240,950);
   TextBox textBox = TextBox(textPos, "Everyone knows that the best music comes from the 80's. Why not turn on the radio?", 26, sf::Color(255,0,0));
   std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);

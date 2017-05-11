@@ -5,12 +5,19 @@
 GameController::GameController() : exitRequested(false), window(sf::VideoMode(1920,1080), "RadioTime", sf::Style::Fullscreen), view(sf::FloatRect(0,0,1920,1080))
 {
 	window.setFramerateLimit(60);
-	shape.setFillColor(sf::Color(0,200,0));
+	
+    shape.setFillColor(sf::Color(0,200,0));
 	shape.setPosition(446,454);
-	shape1.setFillColor(sf::Color(200,200,200));
-	shape1.setPosition(446,454);
+	
+    shape1.setFillColor(sf::Color(200,200,200));
+    shape1.setPosition(446,454);
 	shape1.setSize(sf::Vector2f(200,40));
-	window.setView(view);
+	
+    inventorybox.setFillColor(sf::Color(49, 254, 222));
+    inventorybox.setPosition(1700.f, 440.f);
+    inventorybox.setSize({110, 110});
+    
+    window.setView(view);
 	clock.restart();
 	gridTexture.loadFromFile("../sprites/grid.png");
 	gridSprite.setTexture(gridTexture);
@@ -131,14 +138,20 @@ void GameController::playerMove(int x, int y){
         player.move(x,y);
     }
     else if (grid.canInteractWith(newpos.x, newpos.y)) {
-        // Tile can't be moved on, but can hold items
+        // Tile can't be moved on, but could hold items
         Tile& tile = grid.getTile(newpos.x, newpos.y);
-        if (tile.puzzlekey == player.getInventory().id && tile.puzzlepiece.id != 0) {
-            tile.storage = tile.puzzlepiece;
-            tile.puzzlepiece = {0};
+      
+        if (tile.puzzlekey == -1) {
+            tile.storage = player.swapInventory(tile.storage);
+            tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
         }
-        tile.storage = player.swapInventory(tile.storage);
-        tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
+        else if (tile.puzzlekey == player.getInventory().id) {
+            tile.storage = player.swapInventory(tile.puzzlepiece);
+            tile.storage = {0};
+        }
+        else {
+            // nothing interesting happens
+        }
 
     }
     else {
@@ -156,15 +169,16 @@ void GameController::draw() {
 		window.draw(playerSprite);
 		window.draw(shape1);
 		window.draw(shape);
+		window.draw(inventorybox);
 		//window.draw(textBox.getBox());
 		window.draw(textBox.getText());
-		for(auto text : passwordLetters){
+		for(auto text : passwordLetters) {
 			window.draw(text);
 		}
 
         for (auto& tile : grid.getTiles()) {
             window.draw(tile.sprite);
-            if (tile.storage.id) {
+            if (tile.storage.id && !tile.hidden) {
                 window.draw(tile.storage.sprite);
             }
         }

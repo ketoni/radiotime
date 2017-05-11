@@ -80,18 +80,23 @@
 },
 // sofa 
 {
-    false,
-    false,
+    true,
+    true,
     -1,
-    "",
+    "sofa",
     "wall.png",
+    {
+        1,
+        "a key",
+        "../sprites/items-01.png"
+    },
 },
 // sofa
 {
-    false,
-	false,
+    true,
+	true,
     -1,
-    "",
+    "sofa",
     "wall.png",
 },
 // wall
@@ -102,21 +107,32 @@
     "",
     "wall.png",
 },
-// stove
+// oven
 {
-    false,
-    false,
-    -1,
-    "",
+    true,
+    true,
+    2,
+    "oven",
     "wall.png",
+    {},
+    {
+        20,
+        "cheese",
+        "../sprites/items-20.png",
+    },
 },
 // fridge
 {
-    false,
-	false,
+    true,
+	true,
     -1,
-    "",
+    "fridge",
     "wall.png",
+    {
+        3,
+        "a mushroom",
+        "../sprites/items-03.png"
+    },
 },
 // wall
 {
@@ -166,7 +182,7 @@
 {},
 {},
 
-// plant or trash bin?
+// wall
 {
     false,
 	false,
@@ -212,7 +228,7 @@
 {},
 {},
 
-// vent
+// wall (vent?)
 {
     false,
 	false,
@@ -225,7 +241,7 @@
 {},
 {},
 
-// mirror
+// wall (mirror?)
 {
     false,
 	false,
@@ -257,11 +273,16 @@
 },
 // floor vent
 {
-    false,
-	false,
+    true,
+	true,
     -1,
-    "",
+    "floor vent",
     "wall.png",
+    {
+        2,
+        "a piece of paper",
+        "../sprites/items-02.png"
+    }   
 },
 
 {},
@@ -304,6 +325,7 @@
 },
 
 //fifth row
+// wall
 {
     false,
 	false,
@@ -311,6 +333,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -318,8 +341,10 @@
     "",
     "wall.png",
 },
+
 {},
 {},
+
 //time machine
 {
     false,
@@ -336,6 +361,7 @@
     "",
     "wall.png",
 },
+
 {},
 {},
 {},
@@ -343,15 +369,24 @@
 {},
 {},
 {},
+
 //kitchen table
 {
     true,
-	true,
+	false,
     -1,
-    "",
+    "table",
     "wall.png",
+    {
+        5,
+        "a pizza",
+        "../sprites/items-05.png"
+    },
 },
+
 {},
+
+// wall
 {
     false,
 	false,
@@ -360,6 +395,7 @@
     "wall.png",
 },
 //sixth row
+// wall
 {
     false,
 	false,
@@ -367,6 +403,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -374,12 +411,15 @@
     "",
     "wall.png",
 },
+
 {},
 {},
 {},
 {},
 {},
 {},
+
+// wall
 {
     false,
 	false,
@@ -387,21 +427,29 @@
     "",
     "wall.png",
 },
+
 {},
 {},
 {},
 {},
 {},
 {},
+
 //book shelf
 {
     true,
 	true,
     -1,
-    "",
-    "wall.png",
+    "book shelf",
+    "wall.png", 
+    {
+        6,
+        "a battery",
+        "../sprites/items-06.png"
+    },
 },
 //seventh row
+// wall
 {
     false,
 	false,
@@ -414,55 +462,84 @@
     true,
 	true,
     -1,
-    "",
+    "bool shelf",
     "wall.png",
+    {
+        7,
+        "sunglasses",
+        "../sprites/items-07.png"
+    },
 },
+
 {},
 {},
 {},
 {},
+
 //work desk
 {
     true,
-	true,
+	false,
     -1,
-    "",
+    "work desk",
     "wall.png",
+    {
+        8,
+        "a cup of coffee",
+        "../sprites/items-08.png"
+    },
 },
+
 //drawer
 {
     true,
 	true,
     -1,
-    "",
+    "drawer",
     "wall.png",
+    {
+        9,
+        "an apple",
+        "../sprites/items-09.png"
+    },
 },
+
 //night table
 {
     true,
 	true,
     -1,
-    "",
+    "plant pot",
     "wall.png",
+    {
+        10,
+        "a sword",
+        "../sprites/items-10.png"
+    },
 },
+
 {},
+
 //bed
 {
     true,
 	false,
     -1,
-    "It's a bed.",
+    "bed.",
     "wall.png",
     {
-        123,
-        "This is an apple or something",
-        "../sprites/item.png",
+        11,
+        "some coins",
+        "../sprites/items-11.png",
     },
 },
+
 {},
 {},
 {},
 {},
+
+// wall
 {
     false,
 	false,
@@ -471,6 +548,7 @@
     "wall.png",
 },
 //eighth row
+// wall
 {
     false,
 	false,
@@ -478,6 +556,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -485,12 +564,15 @@
     "",
     "wall.png",
 },
+
 {},
 {},
 {},
 {},
 {},
 {},
+
+// wall
 {
     false,
 	false,
@@ -498,19 +580,24 @@
     "",
     "wall.png",
 },
+
 {},
+
 //bed
 {
     true,
-	true,
+	false,
     -1,
     "",
     "wall.png",
 },
+
 {},
 {},
 {},
 {},
+
+// wall
 {
     false,
 	false,
@@ -519,6 +606,7 @@
     "wall.png",
 },
 //ninth row
+// wall
 {
     false,
 	false,
@@ -526,6 +614,7 @@
     "",
     "wall.png",
 },
+//wall
 {
     false,
 	false,
@@ -538,9 +627,15 @@
     true,
 	true,
     -1,
-    "",
+    "closet",
     "wall.png",
+    {
+        12,
+        "a bomb",
+        "../sprites/items-12.png"
+    },
 },
+// wall
 {
     false,
 	false,
@@ -548,6 +643,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -555,6 +651,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -562,6 +659,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -569,6 +667,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -576,6 +675,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -583,6 +683,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -590,6 +691,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
@@ -602,9 +704,15 @@
     true,
 	true,
     -1,
-    "",
+    "closet",
     "wall.png",
+    {
+        13,
+        "a hammer",
+        "../sprites/items-13.png"
+    },
 },
+//wall
 {
     false,
 	false,
@@ -617,9 +725,15 @@
     true,
 	true,
     -1,
-    "",
+    "closet",
     "wall.png",
+    {
+        14,
+        "a calculator",
+        "../sprites/items-14.png"
+    },
 },
+// wall
 {
     false,
 	false,
@@ -627,6 +741,7 @@
     "",
     "wall.png",
 },
+// wall
 {
     false,
 	false,
