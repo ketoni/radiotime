@@ -134,8 +134,6 @@ void GameController::playerMove(int x, int y){
     static sf::Vector2i newpos;
     newpos = player.getPosition() + sf::Vector2i(x,y);
 
-    //check if tile is empty
-
     if (grid.canMoveTo(newpos.x, newpos.y)) {
         // Tile can be moved on
         player.move(x,y);
@@ -144,16 +142,23 @@ void GameController::playerMove(int x, int y){
         // Tile can't be moved on, but could hold items
         Tile& tile = grid.getTile(newpos.x, newpos.y);
       
+        // storage object
         if (tile.puzzlekey == -1) {
             tile.storage = player.swapInventory(tile.storage);
             tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
         }
+        // puzzle object
         else if (tile.puzzlekey == player.getInventory().id) {
             tile.storage = player.swapInventory(tile.puzzlepiece);
             tile.storage = {0};
+
+            if (player.getInventory().texname.length() == 1) {
+                // found a password letter
+                letterFound(player.getInventory().texname[0]);
+            }
         }
+        // nothing interesting happens
         else {
-            // nothing interesting happens
         }
 
     }
@@ -165,7 +170,6 @@ void GameController::playerMove(int x, int y){
 
 //draw everything
 void GameController::draw() {
-
 
 		window.draw(gridSprite);
 		window.draw(player.getSprite());

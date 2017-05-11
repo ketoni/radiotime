@@ -116,9 +116,9 @@
     "wall.png",
     {},
     {
-        20,
-        "cheese",
-        "../sprites/items-20.png",
+        0,
+        "You heat the paper in the oven. A letter appears on it!",
+        "T",
     },
 },
 // fridge
