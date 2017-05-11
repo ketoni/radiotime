@@ -69,9 +69,11 @@ void GameController::run()
 				canMove = true;
 			}
 		}
-		//player can move arbitraly before the music is turned on
+		//player can move off beat before the music is turned on
 		else{
-			canMove = true;
+			if(!player.isMoving()){
+				canMove = true;
+			}
 		}
 
 		while(window.pollEvent(event))
@@ -118,6 +120,7 @@ void GameController::run()
 	// clear window with color according to the beat (the color pulses)
 	window.clear(sf::Color((beatTime-factor)*50,(beatTime-factor)*50,(beatTime-factor)*50));
 
+	player.animate();
     // Draw everything to screen
     draw();
 
@@ -164,9 +167,8 @@ void GameController::playerMove(int x, int y){
 void GameController::draw() {
 
 
-		auto playerSprite = player.getSprite();
 		window.draw(gridSprite);
-		window.draw(playerSprite);
+		window.draw(player.getSprite());
 		window.draw(shape1);
 		window.draw(shape);
 		window.draw(inventorybox);
