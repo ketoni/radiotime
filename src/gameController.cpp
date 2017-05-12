@@ -215,8 +215,11 @@ void GameController::playerMove(int x, int y){
     else if (!musicOn && newpos.x == 2 && newpos.y == 0){
     	musicOn = true;
     	music.play();
-    	textBox.setText("Uh oh! The time machine has tuned to the beat! Shut it off before you DIE.");
+    	textBox.setText("Uh oh! My time machine is tuned to the music, and I'm aging fast! Go to the console.");
         // Tile just blocks movement 
+    }
+    else if (grid.getTile(newpos.x, newpos.y).puzzlehint.length()) {
+        textBox.setText(grid.getTile(newpos.x, newpos.y).puzzlehint);
     }
 	canMove = false;
 }
@@ -256,6 +259,12 @@ void GameController::letterFound(char letter){
 			passwordLetters[i].setString(letter);
 		}
 	}
+    for (auto letter : passwordLetters) {
+        if (letter.getString() == "?") {
+            return;
+        }
+    }
+    end(true);
 }
 
 void GameController::end(bool win){

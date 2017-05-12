@@ -29,6 +29,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "Agh! What was the reset password...? Maybe it's stored somewhere... better go search.",
 },
 // console
 {
@@ -37,6 +40,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "Agh! What was the reset password...? Maybe it's stored somewhere... better go search.",
 },
 // console
 {
@@ -45,6 +51,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "Agh! What was the reset password...? Maybe it's stored somewhere... better go search.",
 },
 // door
 {
@@ -53,6 +62,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "All the doors are locked. You can't open them when time-travelling.",
 },
 // wall
 {
@@ -77,6 +89,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "Nothing to see here. Except your forthcoming doom. Better hurry up.",
 },
 // sofa 
 {
@@ -368,6 +383,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "The machine needs to be reset. Stand here watching time fly, or try to save yourself.",
 },
 //time machine
 {
@@ -376,6 +394,9 @@
     -1,
     "",
     "wall.png",
+    {},
+    {},
+    "The machine needs to be reset. Stand here watching time fly, or try to save yourself.",
 },
 
 {},

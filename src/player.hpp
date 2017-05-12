@@ -28,10 +28,10 @@ class Player
 
         sf::Vector2i _pos;
         unsigned _age = 20;
-        unsigned _agingCooldown = 1;
+        unsigned _agingCooldown = 10;
         unsigned _ageCounter = 0;
         unsigned _ageStep = 0;
-        unsigned _ageStepCooldown = 4;
+        unsigned _ageStepCooldown = 40;
         unsigned _faceDirection = 0;
         int _frame = -10;
         bool _moveAnimation = false;

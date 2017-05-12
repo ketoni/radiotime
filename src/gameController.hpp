@@ -68,7 +68,7 @@ private:
   TextBox endBox = TextBox(sf::Vector2u(240,500), "", 30, sf::Color(0,0,0));
   sf::Music music;
   sf::Text ageText;
-  std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);
+  std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(3);
   std::string password = "JAM";
   sf::Font font;
 
