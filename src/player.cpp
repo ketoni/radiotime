@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-Player::Player() : _pos(2,2), _age(20), _inventory(), _inventorypos(1700.f, 440.f)
+Player::Player() : _pos(2,2), _age(20), _inventory(), _inventorypos(1700.f, 540.f)
 {
 
 	setSprites();
@@ -92,6 +92,7 @@ void Player::setSprites() {
 	sf::Sprite sprite;
 	_sprites.push_back(sprite);
 	_sprites[16].setTexture(_textures[16]);
+	_sprites[_currentSprite].setPosition(220,185);
 
 }
 

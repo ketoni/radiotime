@@ -7,14 +7,14 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(19
 	window.setFramerateLimit(60);
 	
     shape.setFillColor(sf::Color(0,200,0));
-	shape.setPosition(446,454);
-	
+	shape.setPosition(446,455);
+
     shape1.setFillColor(sf::Color(200,200,200));
-    shape1.setPosition(446,454);
-	shape1.setSize(sf::Vector2f(200,40));
-	
+    shape1.setPosition(446,455);
+	shape1.setSize(sf::Vector2f(100,40));
+
     inventorybox.setFillColor(sf::Color(49, 254, 222));
-    inventorybox.setPosition(1700.f, 440.f);
+    inventorybox.setPosition(1700.f, 540.f);
     inventorybox.setSize({110, 110});
     
     window.setView(view);
@@ -45,14 +45,68 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(19
 	ageText.setPosition(1670,300);
 	ageText.setString("AGE:"+std::to_string(player.getAge()));
 
-}
+	inventoryText.setFont(font);
+	inventoryText.setPosition(1670,480);
+	inventoryText.setString("PICK UP");
+	setSprites();
 
+	soundBuffers["DEATH"].loadFromFile("../sounds/DEATH.wav");
+	soundBuffers["FAILED_INTERACTION"].loadFromFile("../sounds/FAILED_INTERACTION.wav");
+	soundBuffers["LETTER_REVEAL"].loadFromFile("../sounds/LETTER_REVEAL.wav");
+	soundBuffers["PICKUP"].loadFromFile("../sounds/PICKUP.wav");
+	soundBuffers["SWITCH"].loadFromFile("../sounds/SWITCH.wav");
+	soundBuffers["WIN"].loadFromFile("../sounds/WIN.wav");
+
+	sounds["DEATH"].setBuffer(soundBuffers["DEATH"]);
+	sounds["FAILED_INTERACTION"].setBuffer(soundBuffers["FAILED_INTERACTION"]);
+	sounds["LETTER_REVEAL"].setBuffer(soundBuffers["LETTER_REVEAL"]);
+	sounds["PICKUP"].setBuffer(soundBuffers["PICKUP"]);
+	sounds["SWITCH"].setBuffer(soundBuffers["SWITCH"]);
+	sounds["WIN"].setBuffer(soundBuffers["WIN"]);
+
+}
+void GameController::setSprites() {
+
+	animationTextures.reserve(73);
+	for (int i = 1; i < 74; i++) {
+		animationTextures.emplace_back();
+		std::string thing = "../sprites/ANIMATION/BOUNCE/animation0";
+		if(i < 100){
+			thing += "0";
+		}
+		if(i < 10){
+			thing += "0";
+		}
+		animationTextures.back().loadFromFile(thing + std::to_string(i) + ".png");
+
+		sf::Sprite sprite;
+		animationSprites.push_back(sprite);
+		animationSprites.back().setTexture(animationTextures.back());
+		animationSprites.back().setPosition(-10,0);
+	}
+	starTextures.reserve(65);
+	for (int i = 2; i < 130; i+=2) {
+		starTextures.emplace_back();
+		std::string thing = "../sprites/ANIMATION/STARS/STARS0";
+		if(i < 100){
+			thing += "0";
+		}
+		if(i < 10){
+			thing += "0";
+		}
+		starTextures.back().loadFromFile(thing + std::to_string(i) + ".png");
+
+		sf::Sprite sprite;
+		starSprites.push_back(sprite);
+		starSprites.back().setTexture(starTextures.back());
+		starSprites.back().setPosition(-10,0);
+	}
+
+}
 void GameController::run()
 {
 
 	music.openFromFile("../music/music.ogg");
-	float factor = 0.0f;
-	float time = 0.0f;
 	// start screen, wait for player to press something
 	while(window.isOpen() && !exitRequested && startScreen) {
 		sf::Event event1;
@@ -93,7 +147,7 @@ void GameController::run()
 				if(!player.age()){
 					end(false);
 				}
-				aged = true;
+
 			}
 			if(aged && factor >beatTime/2){
 				aged = false;
@@ -132,8 +186,8 @@ void GameController::run()
 				else if(event.key.code == sf::Keyboard::Up){
 					playerMove(0,-1);
 				}
-				if(event.key.code == sf::Keyboard::N){
-					letterFound('N');
+				if(event.key.code == sf::Keyboard::W){
+					end(true);
 				}
 				//std::cout << "time " << std::fmod(time, beatTime) << std::endl;
 			}
@@ -146,7 +200,8 @@ void GameController::run()
 
     // a block shows when to beat
 	if(musicOn){
-		shape.setSize(sf::Vector2f((beatTime*2-(beatTime-factor))*200,40));
+		shape.setSize(sf::Vector2f((beatTime*2-(beatTime-factor))*100,40));
+		animate();
 	}
 	//arrow over radio
 	else{
@@ -158,10 +213,27 @@ void GameController::run()
 	window.clear(sf::Color((beatTime-factor)*50,(beatTime-factor)*50,(beatTime-factor)*50));
 
 	player.animate();
+
 	ageText.setString("AGE: "+std::to_string(player.getAge()));
     // Draw everything to screen
     draw();
 
+    if(canInteract){
+    	if(factor > beatTime/2.0f){
+			endBox.getText().setColor(sf::Color((beatTime-factor)*50+50,(beatTime-factor)*100+150,(beatTime-factor)*100+150));
+		}
+		else{
+			endBox.getText().setColor(sf::Color(factor*50+50,factor*100+150,factor*100+150));
+		}
+    }
+    else{
+    	if(factor > beatTime/2.0f){
+			endBox.getText().setColor(sf::Color((beatTime-factor)*75+130,(beatTime-factor)*40+40,(beatTime-factor)*40+40));
+		}
+		else{
+			endBox.getText().setColor(sf::Color(factor*75+130,factor*40+40,factor*40+40));
+		}
+    }
     // Update frame
     window.display();
   }
@@ -175,23 +247,26 @@ void GameController::playerMove(int x, int y){
         // Tile can be moved on
         player.move(x,y);
     }
-    else if (grid.canInteractWith(newpos.x, newpos.y)) {
+    else if (canInteract && grid.canInteractWith(newpos.x, newpos.y)) {
         // Tile can't be moved on, but could hold items
         Tile& tile = grid.getTile(newpos.x, newpos.y);
       
         // storage object
         if (tile.puzzlekey == -1) {
+        	sounds["PICKUP"].play();
             textBox.setInfoText(TextBox::SwapItems, tile, player.getInventory());
             tile.storage = player.swapInventory(tile.storage);
             tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
         }
         // puzzle object
         else if (tile.puzzlekey == player.getInventory().id) {
+        	sounds["SWITCH"].play();
             tile.storage = player.swapInventory(tile.puzzlepiece);
             std::cout << player.getInventory().texname << std::endl;
             if (player.getInventory().texname.length() == 1) {
                 // found a password letter
                 letterFound(player.getInventory().texname[0]);
+                sounds["LETTER_REVEAL"].play();
                 textBox.setInfoText(TextBox::UnlockLetter, tile);
             }
             else {
@@ -208,14 +283,17 @@ void GameController::playerMove(int x, int y){
         }
         else {
             // wrong object
+        	sounds["FAILED_INTERACTION"].play();
             textBox.setInfoText(TextBox::NothingHappens, tile, player.getInventory());
         }
     }
     //radio interact
     else if (!musicOn && newpos.x == 2 && newpos.y == 0){
     	musicOn = true;
+    	canInteract = true;
     	music.play();
     	textBox.setText("Uh oh! My time machine is tuned to the music, and I'm aging fast! Go to the console.");
+    	music.setLoop(true);
         // Tile just blocks movement 
     }
     else if (grid.getTile(newpos.x, newpos.y).puzzlehint.length()) {
@@ -227,29 +305,49 @@ void GameController::playerMove(int x, int y){
 //draw everything
 void GameController::draw() {
 
-		window.draw(gridSprite);
-		if(!musicOn){
-			window.draw(arrowSprite);
-		}
-		window.draw(player.getSprite());
-		window.draw(shape1);
-		window.draw(shape);
-		window.draw(inventorybox);
-		window.draw(ageText);
-		//window.draw(textBox.getBox());
-		window.draw(textBox.getText());
-		for(auto text : passwordLetters) {
-			window.draw(text);
-		}
+	if(musicOn){
+		window.draw(starSprites[currentAnimSprite]);
+	}
+	else{
+		window.draw(starSprites[0]);
+	}
+	window.draw(gridSprite);
+	if(!musicOn){
+		window.draw(animationSprites[0]);
+		window.draw(arrowSprite);
+	}
+	else{
+		//std::cout << "index " << currentAnimSprite << std::endl;
+		window.draw(animationSprites[currentAnimSprite]);
+	}
+	window.draw(player.getSprite());
+	window.draw(shape1);
+	window.draw(shape);
+	window.draw(inventorybox);
+	window.draw(ageText);
+	window.draw(inventoryText);
+	//window.draw(textBox.getBox());
+	window.draw(textBox.getText());
+	for(auto text : passwordLetters) {
+		window.draw(text);
+	}
 
-        for (auto& tile : grid.getTiles()) {
-            window.draw(tile.sprite);
-            if (tile.storage.id && !tile.hidden) {
-                window.draw(tile.storage.sprite);
-            }
-        }
-        window.draw(player.getInventory().sprite);
-        window.draw(endBox.getText());
+	for (auto& tile : grid.getTiles()) {
+		window.draw(tile.sprite);
+		if (tile.storage.id && !tile.hidden) {
+			window.draw(tile.storage.sprite);
+		}
+	}
+	window.draw(player.getInventory().sprite);
+	window.draw(endBox.getText());
+
+}
+void GameController::animate() {
+	currentAnimSprite += 1;
+	if(!aged && factor <beatTime/10){
+		aged = true;
+		currentAnimSprite = 0;
+	}
 
 }
 
@@ -268,11 +366,24 @@ void GameController::letterFound(char letter){
 }
 
 void GameController::end(bool win){
-	if(!win){
-		endBox.setText("Poor you.. You had all the time in the world to figure out the puzzle.. but then you turned into stone.. poor you..");
+
+	if(!hasEnded){
+		if(!win){
+			sounds["DEATH"].play();
+			endBox.setText("YOU LOSE");
+			textBox.setText("Poor you.. You had all the time in the world to figure out the puzzle.. but then you turned into stone.. poor you..");
+			endBox.getText().setColor(sf::Color(150,80,80));
+			canInteract = false;
+
+		}
+		else{
+			sounds["WIN"].play();
+			endBox.setText("YOU WIN");
+			textBox.setText("You managed to shut down the time machine! Don't worry, you still have some good years left!");
+			endBox.getText().setColor(sf::Color(100,255,255));
+		}
+		hasEnded = true;
 	}
-	else{
-		endBox.setText("WIN");
-	}
+
 
 }
