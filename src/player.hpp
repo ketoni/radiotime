@@ -21,15 +21,21 @@ class Player
         void animate();
         Item swapInventory(Item);
         void setSprites();
+        bool age();
+        unsigned getAge();
 
     private:
 
         sf::Vector2i _pos;
-        unsigned _age;
+        unsigned _age = 20;
+        unsigned _agingCooldown = 1;
+        unsigned _ageCounter = 0;
         unsigned _ageStep = 0;
+        unsigned _ageStepCooldown = 4;
         unsigned _faceDirection = 0;
         int _frame = -10;
         bool _moveAnimation = false;
+        bool _inventoryAnimation = false;
         sf::Vector2f _originalPos;
         
         std::vector<sf::Sprite> _sprites;

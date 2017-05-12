@@ -20,10 +20,10 @@ public:
     };
 
 	//return the text
-	sf::Text getText();
+	sf::Text& getText();
 
 	//return the shape
-	sf::RectangleShape getBox();
+	sf::RectangleShape& getBox();
 
 	void setText(std::string);
 

@@ -1,7 +1,7 @@
 #include "player.hpp"
 
 
-Player::Player() : _pos(2,2), _age(0), _inventory(), _inventorypos(1700.f, 440.f)
+Player::Player() : _pos(2,2), _age(20), _inventory(), _inventorypos(1700.f, 440.f)
 {
 
 	setSprites();
@@ -17,24 +17,23 @@ void Player::move(int x, int y)
     _moveAnimation = true;
     //right
     if(x == 1){
-    	_currentSprite = _ageStep + 1;
     	_faceDirection = 1;
     }
     //left
-    else if(x == -1){
-		_currentSprite = _ageStep + 3;
+    else if(x == -1){;
 		_faceDirection = 3;
 	}
     //down
-    else if(y == 1){
-		_currentSprite = _ageStep + 2;
+    else if(y == 1){2;
 		_faceDirection = 2;
 	}
     //up
     else if(y == -1){
-		_currentSprite = _ageStep;
 		_faceDirection = 0;
 	}
+    if(_currentSprite != 16){
+    	_currentSprite = _ageStep + _faceDirection;
+    }
 
 }
 
@@ -42,12 +41,24 @@ Item Player::swapInventory(Item item)
 {
     Item ret = _inventory;
     _inventory = item;
-    _inventory.sprite.setPosition(_inventorypos);
+    //if new item is not empty, start animation for it
+    if(_inventory.texname != ""){
+    	auto size = _inventory.sprite.getTexture()->getSize();
+    	_inventory.sprite.setOrigin(size.x/2, size.y/2);
+    	_inventory.sprite.setPosition(_inventorypos.x+size.x/2.0f,_inventorypos.y+ size.y/2.0f);
+    	_inventory.sprite.setScale(5.0f,5.0f);
+    	_inventoryAnimation = true;
+    }
+    //returned item has to be reseted
+    ret.sprite.setOrigin(0, 0);
+    ret.sprite.setScale(1.0f,1.0f);
+    ret.sprite.setPosition(_inventorypos.x,_inventorypos.y);
     return ret;
 } 
 
 sf::Sprite& Player::getSprite()
 {
+
     return _sprites[_currentSprite];
 }
 
@@ -85,8 +96,17 @@ void Player::setSprites() {
 }
 
 void Player::animate(){
-	//(1/110)x² + y -30 = 0 left and right
-	// x = sqrt(-y/60*frame +30/(1/110))
+	//item was taken recently into inventory -> animate it
+	if(_inventoryAnimation){
+		auto scale = _inventory.sprite.getScale();
+		if(scale.x -0.1f <= 1.0f){
+			_inventory.sprite.setScale(1.0f,1.0f);
+			_inventoryAnimation = false;
+		}
+		else{
+			_inventory.sprite.setScale(scale.x-0.1f,scale.y-0.1f);
+		}
+	}
 	if(_moveAnimation){
 		float x = 0.0f;
 		float y = 0.0f;
@@ -104,7 +124,7 @@ void Player::animate(){
 
 		}
 		//right
-		if(_faceDirection == 1){
+		else if(_faceDirection == 1){
 			x = sqrt((-std::abs(_frame)/13.0f*30.0f+30.0f)/(1.0f/110.0f));
 			y = -(30.0f-(1.0f/110.0f)*pow(_frame/13.0f*55,2.0));
 			if(_frame > 0){
@@ -113,7 +133,7 @@ void Player::animate(){
 
 		}
 		//down
-		if(_faceDirection == 2){
+		else if(_faceDirection == 2){
 			x = 0;
 			//slow movement at the beginning
 			if(_frame < 0){
@@ -147,4 +167,32 @@ void Player::animate(){
 
 bool Player::isMoving(){
 	return _moveAnimation;
+}
+
+bool Player::age(){
+	_ageCounter++;
+	//player ages after certain amount of beats
+	if(_ageCounter%_agingCooldown == 0){
+		_age++;
+		//player looks change after certain amount of years
+		if(_currentSprite != 16 && _age % _ageStepCooldown == 0){
+			_ageStep+=4;
+			_currentSprite = _ageStep + _faceDirection;
+			//player reaches "death"
+			if(_ageStep == 16){
+				_currentSprite = 16;
+				_sprites[_currentSprite].setPosition(_pos.x*110,_pos.y*110-35);
+				return false;
+			}
+			_sprites[_currentSprite].setPosition(_pos.x*110,_pos.y*110-35);
+
+		}
+	}
+	return true;
+
+}
+unsigned Player::getAge(){
+	return _age;
+
+
 }

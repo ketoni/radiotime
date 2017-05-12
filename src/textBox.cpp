@@ -13,7 +13,7 @@ TextBox::TextBox(sf::Vector2u position, std::string infoText, int characterSize,
 	text.setPosition(position.x,position.y);
 	addLinebreaks(infoText);
 
-	box.setFillColor(sf::Color(100,100,100));
+	box.setFillColor(sf::Color(189,4,240));
 	box.setPosition(position.x -10, position.y -10);
 	box.setSize(sf::Vector2f(text.getGlobalBounds().width+20,text.getGlobalBounds().height+20));
 
@@ -22,11 +22,11 @@ TextBox::TextBox(sf::Vector2u position, std::string infoText, int characterSize,
 }
 
 
-sf::Text TextBox::getText(){
+sf::Text& TextBox::getText(){
 	return text;
 }
 
-sf::RectangleShape TextBox::getBox(){
+sf::RectangleShape& TextBox::getBox(){
 	return box;
 }
 

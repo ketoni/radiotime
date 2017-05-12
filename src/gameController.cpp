@@ -22,6 +22,14 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(19
 	gridTexture.loadFromFile("../sprites/grid.png");
 	gridSprite.setTexture(gridTexture);
 	gridSprite.setPosition(-10,0);
+
+	startTexture.loadFromFile("../sprites/start.png");
+	startSprite.setTexture(startTexture);
+
+	arrowTexture.loadFromFile("../sprites/arrow.png");
+	arrowSprite.setTexture(arrowTexture);
+	arrowSprite.setPosition(220,0);
+
 	//gridSprite.setScale((float)(1200.0f/1920.0f),(float)(675.0f/1080.0f));
 	//gridSprite.setScale(0.1f,0.1f);
 	font.loadFromFile("../fonts/PressStart2P.ttf");
@@ -33,11 +41,15 @@ GameController::GameController() : exitRequested(false), window(sf::VideoMode(19
 		passwordLetters[i].setFont(font);
 		passwordLetters[i].setPosition(417+x*i,34);
 	}
+	ageText.setFont(font);
+	ageText.setPosition(1670,300);
+	ageText.setString("AGE:"+std::to_string(player.getAge()));
+
 }
 
 void GameController::run()
 {
-	sf::Music music;
+
 	music.openFromFile("../music/music.ogg");
 	float factor = 0.0f;
 	float time = 0.0f;
@@ -53,7 +65,18 @@ void GameController::run()
 				startScreen = false;
 			}
 		}
+		time = clock.getElapsedTime().asSeconds();
+		factor = std::fmod(time, beatTime);
+		if(factor > beatTime/2.0f){
+			startBox.getText().setColor(sf::Color((beatTime-factor)*130+120,(beatTime-factor)*40+200,(beatTime-factor)*27+27));
+		}
+		else{
+			startBox.getText().setColor(sf::Color(factor*130+120,factor*40+200,factor*27+27));
+		}
 		window.clear(sf::Color(0,0,0));
+		window.draw(startSprite);
+		window.draw(startBox.getBox());
+		window.draw(startBox.getText());
 		window.display();
 	}
 
@@ -61,11 +84,21 @@ void GameController::run()
 	while(window.isOpen() && !exitRequested)
 	{
 		sf::Event event;
+
 		//if music is on, change the factors which determine whether the player can move yet or not
 		if(musicOn){
 			time = music.getPlayingOffset().asSeconds();
 			factor = std::fmod(time, beatTime);
-			if (factor > hitWindow && factor < beatTime-hitWindow){
+			if(!aged && factor <beatTime/10){
+				if(!player.age()){
+					end(false);
+				}
+				aged = true;
+			}
+			if(aged && factor >beatTime/2){
+				aged = false;
+			}
+			if (!canMove && factor > hitWindow && factor < beatTime-hitWindow){
 				canMove = true;
 			}
 		}
@@ -85,7 +118,8 @@ void GameController::run()
 			}
 			//player movement, can move always if music is off
 			// if music is on, only one movement per beat
-			if(canMove && event.type == sf::Event::KeyPressed && (!musicOn ||(std::abs(factor-beatTime)<hitWindow || factor<hitWindow))){
+			if(keyReleased && canMove && event.type == sf::Event::KeyPressed && (!musicOn ||(std::abs(factor-beatTime)<hitWindow || factor<hitWindow))){
+				keyReleased = false;
 				if(event.key.code == sf::Keyboard::Left){
 					playerMove(-1,0);
 				}
@@ -98,29 +132,33 @@ void GameController::run()
 				else if(event.key.code == sf::Keyboard::Up){
 					playerMove(0,-1);
 				}
-				if(!musicOn && event.key.code == sf::Keyboard::P){
-					musicOn = true;
-					music.play();
-					textBox.setText("Uh oh! The time machine has tuned to the beat! Shut it off before you DIE.");
-					//std::string ko = textBox.getText().getString();
-					//std::cout << "peeeeeneis " << ko << std::endl;
-				}
 				if(event.key.code == sf::Keyboard::N){
 					letterFound('N');
 				}
-				std::cout << "time " << std::fmod(time, beatTime) << std::endl;
+				//std::cout << "time " << std::fmod(time, beatTime) << std::endl;
+			}
+			if(event.type == sf::Event::KeyReleased){
+				keyReleased = true;
 			}
 
 		}
+
 
     // a block shows when to beat
 	if(musicOn){
 		shape.setSize(sf::Vector2f((beatTime*2-(beatTime-factor))*200,40));
 	}
+	//arrow over radio
+	else{
+		time = clock.getElapsedTime().asSeconds();
+		float factor2 = std::fmod(time, beatTime);
+		arrowSprite.setPosition(226,factor2*-50);
+	}
 	// clear window with color according to the beat (the color pulses)
 	window.clear(sf::Color((beatTime-factor)*50,(beatTime-factor)*50,(beatTime-factor)*50));
 
 	player.animate();
+	ageText.setString("AGE: "+std::to_string(player.getAge()));
     // Draw everything to screen
     draw();
 
@@ -130,7 +168,6 @@ void GameController::run()
 }
 // logic for player movement
 void GameController::playerMove(int x, int y){
-
     static sf::Vector2i newpos;
     newpos = player.getPosition() + sf::Vector2i(x,y);
 
@@ -169,7 +206,11 @@ void GameController::playerMove(int x, int y){
         }
 
     }
-    else {
+    //radio interact
+    else if (!musicOn && newpos.x == 2 && newpos.y == 0){
+    	musicOn = true;
+    	music.play();
+    	textBox.setText("Uh oh! The time machine has tuned to the beat! Shut it off before you DIE.");
         // Tile just blocks movement 
     }
 	canMove = false;
@@ -179,10 +220,14 @@ void GameController::playerMove(int x, int y){
 void GameController::draw() {
 
 		window.draw(gridSprite);
+		if(!musicOn){
+			window.draw(arrowSprite);
+		}
 		window.draw(player.getSprite());
 		window.draw(shape1);
 		window.draw(shape);
 		window.draw(inventorybox);
+		window.draw(ageText);
 		//window.draw(textBox.getBox());
 		window.draw(textBox.getText());
 		for(auto text : passwordLetters) {
@@ -196,6 +241,7 @@ void GameController::draw() {
             }
         }
         window.draw(player.getInventory().sprite);
+        window.draw(endBox.getText());
 
 }
 
@@ -205,4 +251,14 @@ void GameController::letterFound(char letter){
 			passwordLetters[i].setString(letter);
 		}
 	}
+}
+
+void GameController::end(bool win){
+	if(!win){
+		endBox.setText("Poor you.. You had all the time in the world to figure out the puzzle.. but then you turned into stone.. poor you..");
+	}
+	else{
+		endBox.setText("WIN");
+	}
+
 }
