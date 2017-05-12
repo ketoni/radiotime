@@ -64,15 +64,17 @@ void TextBox::setInfoText(TextType mode, Tile target, Item item)
     std::string text = "", taketext = "", placetext = "";
     switch (mode) {
         case ObjectExamine:
-            text = "This is " + target.tooltip + ". I don't know what to do with it";
+            std::cout << "Examine" << std::endl;
+            text = "This is " + target.tooltip + ". " + target.puzzlehint;
             break;
         case NothingHappens:
+            std::cout << "Nothing" << std::endl;
             text = "You use " + item.tooltip + " on " + target.tooltip + ". Nothing interesting happens.";
             break;
         case SwapItems:
+            std::cout << "Swap" << std::endl;
             if (target.storage.id && item.id) {
-                text = "You take " + target.storage.tooltip + " from " + target.tooltip +
-                       " and place " + item.tooltip + " on " + target.tooltip;
+                text = "You swap your " + target.storage.tooltip + " for " + item.tooltip;
             }
             else if (target.storage.id) {
                 text = "You take " + target.storage.tooltip + " from " + target.tooltip;
@@ -85,10 +87,11 @@ void TextBox::setInfoText(TextType mode, Tile target, Item item)
             }
             break;
         case PuzzleProgress:
-            text = "You place " + item.tooltip + " on " + target.tooltip +
-                   " and suddenly find " + target.puzzlepiece.tooltip + "!";
+            std::cout << "Puzzle" << std::endl;
+            text = target.puzzleunlock;
             break;
         case UnlockLetter:
+            std::cout << "Unlock" << std::endl;
             text = target.puzzlepiece.tooltip;
             break;
     }

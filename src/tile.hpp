@@ -16,6 +16,7 @@ struct Tile
     Item puzzlepiece;
     
     std::string puzzlehint;
+    std::string puzzleunlock;
 
     sf::Sprite sprite;
 };

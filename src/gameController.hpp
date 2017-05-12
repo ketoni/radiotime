@@ -69,7 +69,7 @@ private:
   sf::Music music;
   sf::Text ageText;
   std::vector<sf::Text> passwordLetters = std::vector<sf::Text>(5);
-  std::string password = "STING";
+  std::string password = "JAM";
   sf::Font font;
 
 

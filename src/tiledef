@@ -82,21 +82,24 @@
 {
     true,
     true,
-    -1,
+    5,
     "sofa",
     "wall.png",
+    {},
     {
         1,
-        "a key",
+        "key",
         "../sprites/items-01.png"
     },
+    "This sofa seems to eat all your stuff. Almost like it's hungry or something...",
+    "You feed the pizza to your pet sofa, it spits out a key!",
 },
-// sofa
+// wall
 {
-    true,
-	true,
+    false,
+	false,
     -1,
-    "sofa",
+    "",
     "wall.png",
 },
 // wall
@@ -117,22 +120,27 @@
     {},
     {
         0,
-        "You heat the paper in the oven. A letter T appears on it! You enter it to the console.",
-        "T",
+        "You heat the paper in the oven. A letter A appears on it!",
+        "A",
     },
+    "I can heat (or burn) stuff with it" 
 },
 // fridge
 {
     true,
 	true,
-    -1,
+    0,
     "fridge",
     "wall.png",
+    {},
     {
         3,
-        "a mushroom",
+        "mushroom",
         "../sprites/items-03.png"
     },
+    "BLAH",
+    "You find a weird looking mushroom in the fridge. Who would want this?",
+    
 },
 // wall
 {
@@ -167,7 +175,20 @@
 {},
 
 // mario pipe?
-{},
+{
+    true,
+	true,
+    3,
+    "pipe",
+    "wall.png",
+    {},
+    {
+        0,
+        "You throw the mushroom into the pipe. You hear someone shout letter M with an Italian accent",
+        "M",
+    },
+    "Apparently your old plumber is now a celebrity",
+},
 
 // wall
 {
@@ -273,17 +294,11 @@
 },
 // floor vent
 {
-    true,
-	true,
-    13,
-    "floor vent",
+    false,
+	false,
+    -1,
+    "",
     "wall.png",
-    {},
-    {
-        2,
-        "a piece of paper",
-        "../sprites/items-02.png"
-    }   
 },
 
 {},
@@ -380,7 +395,7 @@
     "wall.png",
     {
         5,
-        "a pizza",
+        "pizza",
         "../sprites/items-05.png"
     },
 },
@@ -445,7 +460,7 @@
     "wall.png", 
     {
         6,
-        "a battery",
+        "battery",
         "../sprites/items-06.png"
     },
 },
@@ -486,7 +501,7 @@
     "wall.png",
     {
         8,
-        "a cup of coffee",
+        "cup of coffee",
         "../sprites/items-08.png"
     },
 },
@@ -495,14 +510,17 @@
 {
     true,
 	true,
-    -1,
+    0,
     "drawer",
     "wall.png",
+    {},
     {
-        9,
-        "an apple",
-        "../sprites/items-09.png"
+        2,
+        "piece of paper",
+        "../sprites/items-02.png"
     },
+    "BLEH",
+    "You find a piece of paper from the drawer. It has \"EM TAEH\" written on it. Weird.",
 },
 
 //night table
@@ -514,7 +532,7 @@
     "wall.png",
     {
         10,
-        "a sword",
+        "sword",
         "../sprites/items-10.png"
     },
 },
@@ -530,7 +548,7 @@
     "wall.png",
     {
         11,
-        "some coins",
+        "coins",
         "../sprites/items-11.png",
     },
 },
@@ -632,7 +650,7 @@
     "wall.png",
     {
         12,
-        "a bomb",
+        "bomb",
         "../sprites/items-12.png"
     },
 },
@@ -704,14 +722,16 @@
 {
     true,
 	true,
-    -1,
-    "closet",
+    1,
+    "drawer",
     "wall.png",
+    {},
     {
-        13,
-        "a hammer",
-        "../sprites/items-13.png"
+        0,
+        "You unlock the drawer, you find a piece of paper with the letter J written on it!",
+        "J",
     },
+    "This drawer is locked. You've been looking for the key a while now",
 },
 //wall
 {
@@ -730,7 +750,7 @@
     "wall.png",
     {
         14,
-        "a calculator",
+        "calculator",
         "../sprites/items-14.png"
     },
 },

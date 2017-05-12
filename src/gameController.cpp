@@ -188,7 +188,7 @@ void GameController::playerMove(int x, int y){
         // puzzle object
         else if (tile.puzzlekey == player.getInventory().id) {
             tile.storage = player.swapInventory(tile.puzzlepiece);
-
+            std::cout << player.getInventory().texname << std::endl;
             if (player.getInventory().texname.length() == 1) {
                 // found a password letter
                 letterFound(player.getInventory().texname[0]);
@@ -199,12 +199,17 @@ void GameController::playerMove(int x, int y){
                 textBox.setInfoText(TextBox::PuzzleProgress, tile, tile.storage);
             }
             tile.storage = {0};
+            tile.storeable = false;
         }
         // nothing interesting happens
-        else {
+        else if (player.getInventory().id == 0){
+            // examine
             textBox.setInfoText(TextBox::ObjectExamine, tile);
         }
-
+        else {
+            // wrong object
+            textBox.setInfoText(TextBox::NothingHappens, tile, player.getInventory());
+        }
     }
     //radio interact
     else if (!musicOn && newpos.x == 2 && newpos.y == 0){
