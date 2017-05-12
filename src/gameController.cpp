@@ -144,21 +144,28 @@ void GameController::playerMove(int x, int y){
       
         // storage object
         if (tile.puzzlekey == -1) {
+            textBox.setInfoText(TextBox::SwapItems, tile, player.getInventory());
             tile.storage = player.swapInventory(tile.storage);
             tile.storage.sprite.setPosition(newpos.x * grid.getTileSize(), newpos.y * grid.getTileSize());
         }
         // puzzle object
         else if (tile.puzzlekey == player.getInventory().id) {
             tile.storage = player.swapInventory(tile.puzzlepiece);
-            tile.storage = {0};
 
             if (player.getInventory().texname.length() == 1) {
                 // found a password letter
                 letterFound(player.getInventory().texname[0]);
+                textBox.setInfoText(TextBox::UnlockLetter, tile);
             }
+            else {
+                // puzzle progress
+                textBox.setInfoText(TextBox::PuzzleProgress, tile, tile.storage);
+            }
+            tile.storage = {0};
         }
         // nothing interesting happens
         else {
+            textBox.setInfoText(TextBox::ObjectExamine, tile);
         }
 
     }

@@ -59,3 +59,38 @@ void TextBox::addLinebreaks(std::string infoText){
 	text.setString(infoText);
 }
 
+void TextBox::setInfoText(TextType mode, Tile target, Item item)
+{
+    std::string text = "", taketext = "", placetext = "";
+    switch (mode) {
+        case ObjectExamine:
+            text = "This is " + target.tooltip + ". I don't know what to do with it";
+            break;
+        case NothingHappens:
+            text = "You use " + item.tooltip + " on " + target.tooltip + ". Nothing interesting happens.";
+            break;
+        case SwapItems:
+            if (target.storage.id && item.id) {
+                text = "You take " + target.storage.tooltip + " from " + target.tooltip +
+                       " and place " + item.tooltip + " on " + target.tooltip;
+            }
+            else if (target.storage.id) {
+                text = "You take " + target.storage.tooltip + " from " + target.tooltip;
+            }
+            else if (item.id) {
+                text = "You place " + item.tooltip + " on " + target.tooltip;
+            }
+            else {
+                text = "This is " + target.tooltip + ". There's nothing on it";
+            }
+            break;
+        case PuzzleProgress:
+            text = "You place " + item.tooltip + " on " + target.tooltip +
+                   " and suddenly find " + target.puzzlepiece.tooltip + "!";
+            break;
+        case UnlockLetter:
+            text = target.puzzlepiece.tooltip;
+            break;
+    }
+    setText(text);
+}

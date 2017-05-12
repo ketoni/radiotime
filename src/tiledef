@@ -117,7 +117,7 @@
     {},
     {
         0,
-        "You heat the paper in the oven. A letter appears on it!",
+        "You heat the paper in the oven. A letter T appears on it! You enter it to the console.",
         "T",
     },
 },
@@ -275,9 +275,10 @@
 {
     true,
 	true,
-    -1,
+    13,
     "floor vent",
     "wall.png",
+    {},
     {
         2,
         "a piece of paper",
@@ -525,7 +526,7 @@
     true,
 	false,
     -1,
-    "bed.",
+    "bed",
     "wall.png",
     {
         11,
@@ -588,7 +589,7 @@
     true,
 	false,
     -1,
-    "",
+    "bed",
     "wall.png",
 },
 
